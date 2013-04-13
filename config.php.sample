@@ -1,0 +1,14 @@
+<?php
+  $server = "";
+  $page = "";
+  $user = "";
+  $pass = "";
+  $data_user = "username={$user}";
+  $data_pass = "password={$pass}";
+  $data_other = "take_login=1&logout=0";
+
+  $curl_params['url'] = $server.$page;
+  $curl_params['host'] = "";
+  $curl_params['referer'] = "";
+  $curl_params['data'] = "{$data_other}&{$data_user}&{$data_pass}";
+?>
