@@ -1,13 +1,15 @@
 <?php
   $server = "";
-  $page = "";
+  $login_page = "";
+  $browse_page = "";
   $user = "";
   $pass = "";
   $data_user = "username={$user}";
   $data_pass = "password={$pass}";
   $data_other = "take_login=1&logout=0";
+  $login_url = $server.$login_page;
+  $browse_url = $server.$browse_page;
 
-  $curl_params['url'] = $server.$page;
   $curl_params['host'] = "";
   $curl_params['referer'] = "";
   $curl_params['data'] = "{$data_other}&{$data_user}&{$data_pass}";
