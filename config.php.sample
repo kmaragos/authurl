@@ -13,4 +13,3 @@
   $curl_params['host'] = "";
   $curl_params['referer'] = "";
   $curl_params['data'] = "{$data_other}&{$data_user}&{$data_pass}";
-

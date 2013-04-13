@@ -2,22 +2,32 @@
   // Read request parameters from file
   require_once('config.php');
 
+
+  // Step 1
+  // Post login credentials to login page
+  // and receive cookie with 'uid' and 'pass'.
+
   // Initiliaze string to receive headers
   $headers_string = '';
 
-  echo "<p>{$curl_params['referer']}</p>\n"; //debug
-
   $curl_params['url'] = $login_url;
   $ch = curl_it($curl_params, true);
-  $result = curl_exec($ch);
+  $login_result = curl_exec($ch);
+  // $login_result contains the page returned after login
+  // in the cases I have tested, it is the page with login form
 
   if ($error = curl_error($ch)) {
     echo "<p>Error: {$error}</p>\n"; //debug
   }
   curl_close($ch);
-  
+
   $headers = http_parse_headers($headers_string);
   $auth_info = mine_auth_info($headers);
+
+
+  // Step 2
+  // Get desired page by sending 'uid' and 'pass'
+  // as cookie in request headers
 
   // Initiliaze string to receive headers
   $headers_string = '';
@@ -25,13 +35,13 @@
   $curl_params['url'] = $browse_url;
   $curl_params['data'] = "uid={$auth_info['uid']}; pass={$auth_info['pass']}";
   $ch = curl_it($curl_params);
-  $result = curl_exec($ch);
-
+  $page_result = curl_exec($ch);
+  // $page_result contains the HTML of the target page
   if ($error = curl_error($ch)) {
     echo "<p>Error: {$error}</p>\n"; //debug
   }
   curl_close($ch);
-  
+
   // writes returned HTTP headers in global string
   // called by cURL
   function read_header($ch, $string) {
@@ -56,7 +66,7 @@
 
     return $fields_array;
   }
-  
+
   // Parse header fields
   function parse_header_fields($fields) {
     $fields_array = array();
@@ -71,7 +81,7 @@
         }
       }
     }
-    
+
     return $fields_array;
   }
 
@@ -96,7 +106,7 @@
 
     return $ch;
   }
-  
+
   // Extract 'uid' and 'pass' values from raw 'Set-Cookie' header data
   function mine_auth_info($headers) {
     $cookie = $headers['Set-Cookie'];
@@ -106,7 +116,6 @@
     $pass_cookie = explode(';', $cookie[1]);
     $pass = explode('=', $pass_cookie[0]);
     $info['pass'] = $pass[1];
-    
+
     return $info;
   }
-
