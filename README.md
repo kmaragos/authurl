@@ -10,9 +10,11 @@ It was built to get pages from private torrent trackers with a specific auth pro
 
 Well, this is why I built it. It might work in other cases (sites) out of the box or with some tinkering.
 
+Added search and email notification function.
+
 TODO
 ----
 
 * Make this more generic, turn it into a class or sth
-* Add search & download function for torrents (throw in a 'thanks' button click)
+* Add ~~search &~~ download function for torrents (throw in a 'thanks' button click)
 
