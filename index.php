@@ -35,8 +35,16 @@
   $curl_params['url'] = $browse_url;
   $curl_params['data'] = "uid={$auth_info['uid']}; pass={$auth_info['pass']}";
   $ch = curl_it($curl_params);
-  $page_result = curl_exec($ch);
+
   // $page_result contains the HTML of the target page
+  $page_result = curl_exec($ch);
+
+  // parse page for search tag and send notification email if found
+  if (strstr($page_result, $search_tag)) {
+    echo "'{$search_tag}' found!";
+    $result = mail($notify_email, $notify_subject, $notify_body);
+  }
+
   if ($error = curl_error($ch)) {
     echo "<p>Error: {$error}</p>\n"; //debug
   }

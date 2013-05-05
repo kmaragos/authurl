@@ -9,6 +9,10 @@
   $data_other = "take_login=1&logout=0";
   $login_url = $server.$login_page;
   $browse_url = $server.$browse_page;
+  $search_tag = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  $notify_email = "";
+  $notify_subject = "";
+  $notify_body = "";
 
   $curl_params['host'] = "";
   $curl_params['referer'] = "";
